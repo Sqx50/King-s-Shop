@@ -50,7 +50,7 @@ client.on("ready", () => {
   console.log(`----------------`);
   console.log(`Logged in as ${client.user.tag}!`);
   client.user.setActivity("King's Shop|مرحبا بكم في مكتبة" ); 
-  client.user.setStatus("idle");
+  client.user.setStatus("online");
 });
 
 client.login(process.env.BOT_TOKEN);
