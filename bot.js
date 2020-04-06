@@ -3,7 +3,7 @@ const client = new Discord.Client();
 var prefix = "#";
 client.on("message", message => {
 
-            if (message.content.startsWith(prefix + "-bc")) {
+            if (message.content.startsWith(prefix + "bc")) {
                          if (!message.member.hasPermission("ADMINISTRATOR"))  return;
   let args = message.content.split(" ").slice(1);
   var argresult = args.join(' '); 
@@ -17,10 +17,10 @@ client.on("message", message => {
 
 
 client.on('message' , message => {
-      var prefix = "=bc";
+      var prefix = "=";
       if(message.author.bot) return;
      
-      if(message.content.startsWith(prefix + "bcrole")) {
+      if(message.content.startsWith(prefix + "bc")) {
         if (!message.member.hasPermission("ADMINISTRATOR"))  return;
         let args = message.content.split(" ").slice(2);
      var codes = args.join(' ')
