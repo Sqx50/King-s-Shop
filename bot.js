@@ -3,7 +3,7 @@ const client = new Discord.Client();
 var prefix = "";
 client.on("message", message => {
 
-            if (message.content.startsWith(prefix + "bc")) {
+            if (message.content.startsWith(prefix + "-bc")) {
                          if (!message.member.hasPermission("ADMINISTRATOR"))  return;
   let args = message.content.split(" ").slice(1);
   var argresult = args.join(' '); 
@@ -16,27 +16,41 @@ client.on("message", message => {
 });
 
 
-const adminprefix = "=";
-const devs = ['561603836326707250'];
-client.on('message', message => {
-  var argresult = message.content.split(` `).slice(1).join(' ');
-    if (!devs.includes(message.author.id)) return;
-if (message.content.startsWith(adminprefix + 'playing')) {
-  client.user.setGame(argresult)
-    message.channel.sendMessage(`**:white_check_mark: , The Playing Status Has Been Changed To : ${argresult}**`).then(message => {message.delete(6000)})
-} else 
-  if (message.content.startsWith(adminprefix + 'rename')) {
-client.user.setUsername(argresult).
-    message.channel.sendMessage(`**:white_check_mark: , The Name Of The Bot Has Been Changed To : ${argresult}**`).then(message => {message.delete(6000)})
-} else
-  if (message.content.startsWith(adminprefix + 'setstatus')) {
-client.user.setStatus(argresult)
-    message.channel.sendMessage(`**:white_check_mark: , The Bot Status Has Been Changed To : ${argresult}**`).then(message => {message.delete(6000)})
-} else
-if (message.content.startsWith(adminprefix + 'stream')) {
-  client.user.setGame(argresult, "https://www.twitch.tv/King-s-Shop")
-    message.channel.sendMessage(`**:white_check_mark: , The Stream Bot Has Been Changed To : ${argresult}**`).then(message => {message.delete(6000)})
-}
+client.on('message' , message => {
+      var prefix = "=bc";
+      if(message.author.bot) return;
+     
+      if(message.content.startsWith(prefix + "bcrole")) {
+        if (!message.member.hasPermission("ADMINISTRATOR"))  return;
+        let args = message.content.split(" ").slice(2);
+     var codes = args.join(' ')
+       
+        if(!codes) {
+          message.channel.send("قم بكتابة الرسالة | `$rolebc role message`")
+            return;
+        }
+     
+     
+              var role = message.mentions.roles.first();
+                if(!role) {
+                  message.reply("لا توجد رتبة بهذا الاسم")
+                    return;
+                }
+            message.guild.members.filter(m => m.roles.get(role.id)).forEach(n => {
+              n.send(`${codes}`)
+            })
+            message.channel.send(`لقد تم ارسال هذه الرسالة الى ${message.guild.members.filter(m => m.roles.get(role.id)).size} عضو`)
+        }
+    });
+client.on("ready", () => {
+  console.log(`----------------`);
+  console.log(`Sqx50`);
+  console.log(`----------------`);
+  console.log(`ON ${client.guilds.size} Servers '     Script By :Sqx50 `);
+  console.log(`----------------`);
+  console.log(`Logged in as ${client.user.tag}!`);
+  client.user.setActivity("King's Shop|مرحبا بكم في مكتبة" ); 
+  client.user.setStatus("idle");
 });
 
 client.login(process.env.BOT_TOKEN);
